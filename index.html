@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AR.js A-Frame Location-based EJEMPLO</title>
+<!-- scripts para utilizar aframe - threejs -->
+<!-- CAMBIAR POR LA VERSIÓN DESEADA O MÁS RECIENTE DE AFRAME -->
+<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+<!-- CAMBIAR POR LA VERSIÓN DESEADA O MÁS RECIENTE DE THREEJS Y AFRAME-AR -->
+<script 
+    type='text/javascript' 
+    src='https://raw.githack.com/AR-js-org/AR.js/3.4.7/three.js/build/ar-threex-location-only.js'>
+</script>
+<script 
+    type='text/javascript' 
+    src='https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar.js'>
+</script>
+<!-- PARA HACER QUE EL TEXTO SIEMPRE "VEA" HACIA LA CAMARA -->
+<script 
+    src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js">
+</script>
+</head>
+<body>
+<a-scene 
+    vr-mode-ui="enabled: false" 
+    arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;" 
+    renderer="antialias: true; alpha: true">
+    <!-- CARGAR EL MODELO DEL MARCADOR Y ASIGNARLE UN NOMBRE (ID) -->
+    <a-assets>
+        <a-asset-item id="marker_drop" src="marker_drop.glb"></a-asset-item>
+    </a-assets>
+    <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
+   
+    <!-- GENERAR OBJETOS Y TEXTOS EN LAS POSICIONES INDICADAS -->
+     
+    <!-- CANCHAS DE FUTBOL -->
+    <!-- 
+        * Mover el texto de forma que no quede "encimado" - position padre -> hijo
+        * Indicar que el texto debe "mirar" siempre hacia la cámara -> look-at
+    -->
+    <a-entity 
+        gltf-model='#marker_drop' 
+        gps-new-entity-place="latitude: 19.697164; longitude: -101.234636" 
+        scale="20 20 20" 
+        position="0 0 0">
+        <a-entity 
+            text="value: Canchas de futbol; align: center; side: double; width: 15;" 
+            position="0 1 0"
+            look-at="[gps-new-camera]">
+        </a-entity>
+    </a-entity>
+
+    <!-- EDIFICIO B -->
+    <a-entity 
+        gltf-model='#marker_drop'
+        gps-new-entity-place="latitude: 19.697136; longitude: -101.235290" 
+        scale="20 20 20">
+        <a-entity 
+            text="value: Edificio B; align: center; side: double; width: 15;" 
+            position="0 1 0"
+            look-at="[gps-new-camera]">
+        </a-entity>
+    </a-entity>
+
+    <!-- AGREGAR OTROS SITIOS -->
+</a-scene>
+</body>
+</html>
